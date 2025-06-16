@@ -1,52 +1,23 @@
-// calculat functions
-function add(number1, number2) {
-    return number1 + number2;
-}
+function checkAnswer() {
+    const correctAnswer = "4";
+    const selectedOption = document.querySelector('input[name="quiz"]:checked');
 
-function subtract(number1, number2) {
-    return number1 - number2;
-}
+    const feedback = document.getElementById("feedback");
 
-function multiply(number1, number2) {
-    return number1 * number2;
-}
-
-function divide(number1, number2) {
-    if (number2 === 0) {
-        return 'Error: Division by zero';
+    if (!selectedOption) {
+        feedback.textContent = "Please select an answer.";
+        return;
     }
-    return number1 / number2;
+
+    const userAnswer = selectedOption.value;
+
+    if (userAnswer === correctAnswer) {
+        feedback.textContent = "Correct! Well done.";
+        feedback.style.color = "green";
+    } else {
+        feedback.textContent = "That's incorrect. Try again!";
+        feedback.style.color = "red";
+    }
 }
 
-// Function fetch numbers
-function getInputValues() {
-    const number1 = parseFloat(document.getElementById('number1').value) || 0;
-    const number2 = parseFloat(document.getElementById('number2').value) || 0;
-    return { number1, number2 };
-}
-
-// result
-function displayResult(value) {
-    document.getElementById('calculation-result').textContent = value;
-}
-
-// add Event Listeners
-document.getElementById('add').addEventListener('click', function () {
-    const { number1, number2 } = getInputValues();
-    displayResult(add(number1, number2));
-});
-
-document.getElementById('subtract').addEventListener('click', function () {
-    const { number1, number2 } = getInputValues();
-    displayResult(subtract(number1, number2));
-});
-
-document.getElementById('multiply').addEventListener('click', function () {
-    const { number1, number2 } = getInputValues();
-    displayResult(multiply(number1, number2));
-});
-
-document.getElementById('divide').addEventListener('click', function () {
-    const { number1, number2 } = getInputValues();
-    displayResult(divide(number1, number2));
-});
+document.getElementById("submit-answer").addEventListener("click", checkAnswer);
